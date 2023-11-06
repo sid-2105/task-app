@@ -2,13 +2,13 @@ const sgmail = require('@sendgrid/mail')
 
 sgmail.setApiKey(process.env.SG_API_KEY)
 
-// sgmail.send({
-//     to:'siddhuji0509@gmail.com',
-//     from:'siddhuji0509@gmail.com',
-//     subject:'this is first email',
-//     text:'successfully implemented'
+sgmail.send({
+    to:'siddhuji0509@gmail.com',
+    from:'siddhuji0509@gmail.com',
+    subject:'this is first email',
+    text:'successfully implemented'
 
-// })
+})
 
 const sendWelcomeEmail = (email,name)=>{
     sgmail.send({

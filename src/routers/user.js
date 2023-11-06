@@ -4,17 +4,15 @@ const auth  = require('../middleware/auth')
 const router = new express.Router()
 const multer = require('multer')
 const sharp = require('sharp')
-const {sendWelcomeEmail, sendCancelationEmail} = require('../emails/account')
+//const {sendWelcomeEmail, sendCancelationEmail} = require('../emails/account')
 
 //for signup
 router.post('/users',async(req,res)=>{
-    // console.log(req.body)
-    // res.send("testing")
     const user = new User(req.body)
 
     try{
         await user.save()
-        sendWelcomeEmail(user.email,user.name)
+       // sendWelcomeEmail(user.email,user.name)
         const token = await user.generateAuthToken()
          res.status(201).send({user,token})
     }
@@ -57,8 +55,6 @@ router.post('/users/logoutAll',auth,async(req,res)=>{
     }
     
 })
-
-
 
 router.get('/users/me',auth,async(req,res)=>{
     try{
@@ -109,14 +105,13 @@ router.patch('/users/me',auth,async(req,res)=>{
 
 router.delete('/users/me',auth,async(req,res)=>{
     try{
-        const user =await User.findByIdAndDelete(req.user._id)
-         if(!user){
-            return res.status(404).send()
-         }
-      // await req.user.remove()
-        sendCancelationEmail(user.email,user.name)
-        res.send(user)
-      
+        // const user = await User.findByIdAndDelete(req.user._id)
+        //  if(!user){
+        //     return res.status(404).send()
+        //  }
+       await req.user.remove()
+       // sendCancelationEmail(user.email,user.name)
+        res.send(req.user)
     }
     catch(e){
         res.status(500).send(e)

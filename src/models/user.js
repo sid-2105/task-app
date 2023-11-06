@@ -3,8 +3,6 @@ const validator= require('validator')
 const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
 const Task=require('./task')
-const multer = require('multer')
-
 
 const userSchema = new mongoose.Schema({
     name:{
@@ -62,6 +60,7 @@ userSchema.virtual('tasks',{
     localField:'_id',
     foreignField:'owner'
 })
+
 userSchema.methods.toJSON = function(){
     const user = this
     const userObject = user.toObject()
@@ -96,7 +95,6 @@ userSchema.pre('save',async function(next){
     const user = this
     if (user.isModified('password')){
         user.password = await bcrypt.hash(user.password,8) 
-
     }
     next()
 })
