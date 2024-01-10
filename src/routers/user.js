@@ -6,15 +6,16 @@ const multer = require('multer')
 const sharp = require('sharp')
 //const {sendWelcomeEmail, sendCancelationEmail} = require('../emails/account')
 
-//for signup
+
 router.post('/users',async(req,res)=>{
     const user = new User(req.body)
-
+    console.log(user)
     try{
         await user.save()
        // sendWelcomeEmail(user.email,user.name)
         const token = await user.generateAuthToken()
          res.status(201).send({user,token})
+         console.log("User created")
     }
     catch(e){
         res.status(400).send(e)
@@ -36,7 +37,6 @@ router.post('/users/logout',auth,async(req,res)=>{
     try{
         req.user.tokens=req.user.tokens.filter((Token)=>{
             return Token.token!=req.token
-            
         })
         await req.user.save()
         res.send()
@@ -67,21 +67,6 @@ router.get('/users/me',auth,async(req,res)=>{
     }
 })
 
-// router.get('/users/:id',async(req,res)=>{
-//     const _id = req.params.id
-//     try{
-//         const user = await User.findById(_id)
-
-//         if(!user){
-//             return res.status(404).send()
-//         }
-//         res.send(user)
-//     }
-//     catch(e){
-//         res.status(500).send()
-//     }
-    
-//})
 
 router.patch('/users/me',auth,async(req,res)=>{
     const updates = Object.keys(req.body)

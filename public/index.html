@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="/img/Ao8g3SyL_400x400.jpg">
+    <link rel="stylesheet" href="./css/style.css">
+    <title>TaskBuddy</title>
+</head>
+<body>
+   <button id="create-user">New User</button>
+   <button id="create-task">Add task</button>
+   <button id="get-all-task">Get all tasks</button>
+   <button id="get-user">Show Profile</button>
+   <button id="login-user">Login</button>
+   <button id="logout-user">Logout</button>
+
+    <div id="signupFormContainer">
+        <form id="signupForm">
+    
+            <label for="username">Name:</label>
+            <input type="text" id="name" name="name" required><br>
+
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" required><br>
+
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password" required><br>
+
+            <label for="password">Confirm Password:</label>
+            <input type="password" id="confirmpassword" name="confirmpassword" required>
+
+            <button type="submit">Sign Up</button>
+        </form>
+    </div>
+        <div id="loginformcontainer">
+        <form id="loginform">  
+            <label for="email">Email:</label>
+            <input type="email" id="loginemail" name="email" required><br>
+    
+            <label for="password">Password:</label>
+            <input type="password" id="loginpassword" name="password" required><br>
+
+            <button type="submit">Sign In</button>
+        </form>
+        </div>
+
+        <div id="taskcontainer">
+            <form id="taskForm">
+            <label for="description">Task Description:</label>
+            <input type="text"  id="description" required></input><br>
+            <label for="status">Task Status:</label>
+            <input type="radio" id="completed" name="status" value="true" required>
+            <label for="completed">Completed</label>
+            <input type="radio" id="incomplete" name="status" value="false" required>
+            <label for="incomplete">Incomplete</label><br>
+        
+            <button type="submit">Create Task</button>
+        </form>
+    </div>
+        <script src="./js/client.js"></script> 
+
+</body>
+</html>
