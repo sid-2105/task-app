@@ -8,18 +8,43 @@
     <title>TaskBuddy</title>
 </head>
 <body>
+    <marquee bgcolor="white"><h1>Complete the task with TaskBuddy</h1></marquee>
    <button id="create-user">New User</button>
    <button id="create-task">Add task</button>
-   <button id="get-all-task">Get all tasks</button>
+   <button id="get-task">Get all tasks</button>
    <button id="get-user">Show Profile</button>
    <button id="login-user">Login</button>
-   <button id="logout-user">Logout</button>
+  
+    <p id="msg" style="display: none; color:#fff;"></p>
 
-    <div id="signupFormContainer">
-        <form id="signupForm">
+    <div id="viewprofile">
+        <h2>Account Details</h2>
+        <p id="name" style="display: none; "></p>
+        <p id="email" style="display: none;"></p>
+        <p id="age" style="display: none;"></p>
+        <button id="logout-user">Logout</button>
+    </div>
+
+    <div id="viewtasks">
+        <h2>Your Tasks</h2>
+        <p id="description" style="display: none; "></p>
+        <p id="status" style="display: none;"></p>
+    </div>
     
+    <div id="signupFormContainer">
+        <!-- <form id="avatarupload">
+            <label for="avatar">pic</label>
+            <input type="file" id="avatar" name="avatar"><br>
+            
+            <button type="submit">Upload</button>
+        </form> -->
+
+        <form id="signupForm">
             <label for="username">Name:</label>
             <input type="text" id="name" name="name" required><br>
+
+            <label for="age">Age:</label>
+            <input type="number" id="age" name="age"><br>
 
             <label for="email">Email:</label>
             <input type="email" id="email" name="email" required><br>
@@ -33,6 +58,7 @@
             <button type="submit">Sign Up</button>
         </form>
     </div>
+
         <div id="loginformcontainer">
         <form id="loginform">  
             <label for="email">Email:</label>
@@ -48,11 +74,11 @@
         <div id="taskcontainer">
             <form id="taskForm">
             <label for="description">Task Description:</label>
-            <input type="text"  id="description" required></input><br>
+            <input type="text"  id="description" name="description" required></input><br>
             <label for="status">Task Status:</label>
-            <input type="radio" id="completed" name="status" value="true" required>
+            <input type="radio" id="completed" name="status" value="true">
             <label for="completed">Completed</label>
-            <input type="radio" id="incomplete" name="status" value="false" required>
+            <input type="radio" id="incomplete" name="status" value="false">
             <label for="incomplete">Incomplete</label><br>
         
             <button type="submit">Create Task</button>

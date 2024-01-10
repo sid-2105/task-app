@@ -4,28 +4,37 @@
 }
 
 body{
-    background-image: url('https://images.unsplash.com/photo-1642370324100-324b21fab3a9?q=80&w=1374&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');
+    background-image: url('https://images.unsplash.com/photo-1605254174172-9d87e4889338?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');
     background-size: cover;
     background-repeat: no-repeat;
 }
 #create-user{
-    background-color: blue;
+    background-color: rgb(200, 103, 39);
+    padding: 5px;
 }
 
 #create-task{
-    background-color: red;
+    background-color: rgb(189, 227, 52);
+    padding: 5px;
+}
+
+#get-task{
+    padding: 5px;
 }
 
 #get-user{
     background-color: green;
+    padding: 5px;
 }
 
 #login-user{
     background-color: yellow;
+    padding: 5px;
 }
 
 #logout-user{
     background-color: blueviolet;
+    padding: 5px;
 }
 
 
@@ -71,4 +80,24 @@ body{
     border: 1px solid #ccc;
     border-radius: 8px;
     background-color: red;
+}
+
+#viewprofile{
+    display: none;
+    max-width: 300px;
+    margin: 0 auto;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    background-color: rgb(198, 198, 179);
+}
+
+#viewtasks{
+    display: none;
+    max-width: 300px;
+    margin: 0 auto;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    background-color: rgb(159, 102, 205);
 }
