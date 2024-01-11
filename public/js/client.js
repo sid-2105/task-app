@@ -15,7 +15,6 @@ createuser.addEventListener('click', function() {
 
 document.getElementById('signupForm').addEventListener('submit', function(event) {
     event.preventDefault();
-
     const password = document.getElementById('password').value
     const confirmpassword = document.getElementById('confirmpassword').value
 
@@ -25,21 +24,13 @@ document.getElementById('signupForm').addEventListener('submit', function(event)
     
     else{
         const formData = new FormData(event.target);
-        const jsonData = {};
-        formData.forEach((value, key) => {
-            jsonData[key] = value;
-        });
-    
+      
         fetch(`${url}/users`, {
             method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(jsonData),
+            body: formData,
         })
         .then(async(res) =>{
             const data =  await res.json()
-            console.log(data);
             var formContainer = document.getElementById('signupFormContainer');
             formContainer.style.display = 'none';
             console.log(data);
@@ -51,7 +42,6 @@ document.getElementById('signupForm').addEventListener('submit', function(event)
     
 });
 
-// const avatar = document.getElementById('avatarupload')
 // avatar.addEventListener('submit',function(e){
 //     e.preventDefault()
 //     const formData = new FormData(e.target);
@@ -59,13 +49,10 @@ document.getElementById('signupForm').addEventListener('submit', function(event)
 //     formData.forEach((value, key) => {
 //         jsonData[key] = value;
 //     });
-
+    
 //     fetch(`${url}/users/avatar`, {
 //         method: 'POST',
-//         headers: {
-//             'Content-Type': 'application/json',
-//         },
-//         body: JSON.stringify(jsonData),
+//         body: formData,
 //     })
 //     .then(response => response.json())
 //     .then(data => {
@@ -75,6 +62,7 @@ document.getElementById('signupForm').addEventListener('submit', function(event)
 //         console.error('Error:', error);
 //     });
 // })
+
 
 
 loginUser.addEventListener('click', async(e)=>{
@@ -138,7 +126,9 @@ getuser.addEventListener('click',function(e){
         var age = document.getElementById('age');
         age.style.display = 'block';
         age.innerText = data.age
-
+        var avatar = document.getElementById('avatar')
+        avatar.src = `data:image/jpeg;base64,${data?.avatar}`
+        avatar.style.display = 'block'
     }).catch((e)=>{
         console.log(e)
     })
@@ -185,13 +175,18 @@ getAllTask.addEventListener('click', async(e)=>{
     }).then(async (res)=>{
         const data = await res.json();
         console.log(data)
-        var description= document.getElementById('description');
-        description.style.display = 'block';
-        var status = document.getElementById('status');
-        status.style.display = 'block';
+   
+        var showTask = document.getElementById('showtask');
+
         data.forEach((task)=>{
-            description.innerText = task.description
-            description.innerText = task.completed
+            let desc = document.createElement("p")
+            let status = document.createElement("p")
+
+            desc.innerText = task.description
+            status.innerText = task.completed
+
+            showTask.appendChild(desc)
+            showTask.appendChild(status)
         })
     }).catch((e)=>{
         console.log(e)

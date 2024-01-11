@@ -22,22 +22,22 @@
         <p id="name" style="display: none; "></p>
         <p id="email" style="display: none;"></p>
         <p id="age" style="display: none;"></p>
+        <img src="" id="avatar" style="display: none;" alt="">
         <button id="logout-user">Logout</button>
     </div>
 
     <div id="viewtasks">
         <h2>Your Tasks</h2>
-        <p id="description" style="display: none; "></p>
-        <p id="status" style="display: none;"></p>
+        <div id="showtask">
+        </div>
     </div>
     
     <div id="signupFormContainer">
-        <!-- <form id="avatarupload">
-            <label for="avatar">pic</label>
-            <input type="file" id="avatar" name="avatar"><br>
+        <form id="avatarupload">
+
             
             <button type="submit">Upload</button>
-        </form> -->
+        </form>
 
         <form id="signupForm">
             <label for="username">Name:</label>
@@ -54,7 +54,8 @@
 
             <label for="password">Confirm Password:</label>
             <input type="password" id="confirmpassword" name="confirmpassword" required>
-
+            <label for="avatar">pic</label>
+            <input type="file" id="avatar" name="avatar"><br>
             <button type="submit">Sign Up</button>
         </form>
     </div>

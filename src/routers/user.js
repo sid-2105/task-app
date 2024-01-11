@@ -6,10 +6,22 @@ const multer = require('multer')
 const sharp = require('sharp')
 //const {sendWelcomeEmail, sendCancelationEmail} = require('../emails/account')
 
+const upload = multer({
+    limits:{
+        fileSize:1000000
+    },
+    fileFilter(req,file,cb){
+        if(!file.originalname.match(/\.(jpg|jpeg|png)$/)){
+          return  cb(new Error('It must be of type jpg, jpeg or png'))
+        }
+        cb(undefined,true)
+    }
+})
 
-router.post('/users',async(req,res)=>{
+router.post('/users',upload.single('avatar'),async(req,res)=>{
+    const buffer = await sharp(req.file.buffer).resize({width:250, height:250}).png().toBuffer()
+    req.body.avatar = buffer
     const user = new User(req.body)
-    console.log(user)
     try{
         await user.save()
        // sendWelcomeEmail(user.email,user.name)
@@ -59,8 +71,6 @@ router.post('/users/logoutAll',auth,async(req,res)=>{
 
 router.get('/users/me',auth,async(req,res)=>{
     try{
-        // const users = await User.find({})
-        // res.send(users)
         res.send(req.user)
     }
     catch(e){
@@ -104,17 +114,7 @@ router.delete('/users/me',auth,async(req,res)=>{
     }
 })
 
-const upload = multer({
-    limits:{
-        fileSize:1000000
-    },
-    fileFilter(req,file,cb){
-        if(!file.originalname.match(/\.(jpg|jpeg|png)$/)){
-          return  cb(new Error('It must be of type jpg, jpeg or png'))
-        }
-        cb(undefined,true)
-    }
-})
+
 
 router.post('/users/me/avatar',auth,upload.single('avatar'),async(req,res)=>{
     const buffer = await sharp(req.file.buffer).resize({width:250, height:250}).png().toBuffer()
