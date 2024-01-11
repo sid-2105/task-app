@@ -187,10 +187,12 @@ getAllTask.addEventListener('click', async(e)=>{
         console.log(data)
         var description= document.getElementById('description');
         description.style.display = 'block';
-        description.innerText = data[0].description
         var status = document.getElementById('status');
         status.style.display = 'block';
-        status.innerText = data[0].completed
+        data.forEach((task)=>{
+            description.innerText = task.description
+            description.innerText = task.completed
+        })
     }).catch((e)=>{
         console.log(e)
     })
