@@ -37,6 +37,11 @@ body{
     padding: 5px;
 }
 
+#edit-profile{
+    background-color: rgb(43, 226, 89);
+    padding: 5px;  
+}
+
 
 #signupFormContainer {
     display: none;
@@ -80,6 +85,21 @@ body{
     border: 1px solid #ccc;
     border-radius: 8px;
     background-color: red;
+}
+
+#editFormContainer{
+    display: none;
+    margin-top: 20px;
+}
+
+#editForm{
+    max-width: 300px;
+    margin: 0 auto;
+    color: white;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    background-color: rgb(102, 154, 217);
 }
 
 #viewprofile{

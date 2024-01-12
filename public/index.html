@@ -24,6 +24,7 @@
         <p id="age" style="display: none;"></p>
         <img src="" id="avatar" style="display: none;" alt="">
         <button id="logout-user">Logout</button>
+        <button id="edit-profile">Edit</button>
     </div>
 
     <div id="viewtasks">
@@ -33,12 +34,6 @@
     </div>
     
     <div id="signupFormContainer">
-        <form id="avatarupload">
-
-            
-            <button type="submit">Upload</button>
-        </form>
-
         <form id="signupForm">
             <label for="username">Name:</label>
             <input type="text" id="name" name="name" required><br>
@@ -59,6 +54,29 @@
             <button type="submit">Sign Up</button>
         </form>
     </div>
+
+    
+    <div id="editFormContainer">
+        <form id="editForm">
+            <label for="username">Name:</label>
+            <input type="text" id="edname" name="name"><br>
+
+            <label for="age">Age:</label>
+            <input type="number" id="edage" name="age"><br>
+
+            <label for="email">Email:</label>
+            <input type="email" id="edemail" name="email"><br>
+
+            <label for="password">Password:</label>
+            <input type="password" id="edpassword" name="password"><br>
+
+            <label for="avatar">pic</label>
+            <input type="file" id="edavatar" name="avatar"><br>
+
+            <button type="submit">Save</button>
+        </form>
+    </div>
+
 
         <div id="loginformcontainer">
         <form id="loginform">  

@@ -4,6 +4,7 @@ const getAllTask = document.querySelector('#get-task')
 const getuser = document.querySelector('#get-user')
 const loginUser = document.querySelector('#login-user')
 const logoutUser = document.querySelector('#logout-user')
+const editprofile = document.querySelector('#edit-profile')
 
 
 const url = 'http://localhost:3000'
@@ -41,29 +42,6 @@ document.getElementById('signupForm').addEventListener('submit', function(event)
     }
     
 });
-
-// avatar.addEventListener('submit',function(e){
-//     e.preventDefault()
-//     const formData = new FormData(e.target);
-//     const jsonData = {};
-//     formData.forEach((value, key) => {
-//         jsonData[key] = value;
-//     });
-    
-//     fetch(`${url}/users/avatar`, {
-//         method: 'POST',
-//         body: formData,
-//     })
-//     .then(response => response.json())
-//     .then(data => {
-//         console.log(data);
-//     })
-//     .catch(error => {
-//         console.error('Error:', error);
-//     });
-// })
-
-
 
 loginUser.addEventListener('click', async(e)=>{
     var formContainer = document.getElementById('loginformcontainer');
@@ -133,6 +111,37 @@ getuser.addEventListener('click',function(e){
         console.log(e)
     })
 })
+
+editprofile.addEventListener('click', function() {
+    var formContainer = document.getElementById('editFormContainer');
+    formContainer.style.display = 'block';
+});
+
+document.getElementById('editForm').addEventListener('submit', function(event) {
+    event.preventDefault();
+    
+        const formData = new FormData(event.target);
+      
+        fetch(`${url}/users/me`, {
+            
+            method: 'PATCH',
+            headers:{
+                Authorization:`Bearer ${token}`,
+            },
+            body: formData,
+        })
+        .then(async(res) =>{
+            const data =  await res.json()
+            var formContainer = document.getElementById('signupFormContainer');
+            formContainer.style.display = 'none';
+            console.log(data);
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        });
+
+    
+});
 
 createtask.addEventListener('click', async(e)=>{
     var formContainer = document.getElementById('taskcontainer');
