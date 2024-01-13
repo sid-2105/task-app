@@ -4,7 +4,11 @@ const getAllTask = document.querySelector('#get-task')
 const getuser = document.querySelector('#get-user')
 const loginUser = document.querySelector('#login-user')
 const logoutUser = document.querySelector('#logout-user')
+const deleteUser = document.querySelector('#delete-user')
 const editprofile = document.querySelector('#edit-profile')
+const edittask = document.querySelector('#edit-task')
+const deletetask = document.querySelector('#delete-task')
+const deleteavatar = document.querySelector('#delete-avatar')
 
 
 const url = 'http://localhost:3000'
@@ -35,6 +39,12 @@ document.getElementById('signupForm').addEventListener('submit', function(event)
             var formContainer = document.getElementById('signupFormContainer');
             formContainer.style.display = 'none';
             console.log(data);
+            var msg = document.getElementById('msg');
+        msg.style.display = 'block';
+        msg.innerText = 'User created Successfully'
+        setTimeout(()=>{
+            msg.style.display = 'none'
+        },3000)
         })
         .catch(error => {
             console.error('Error:', error);
@@ -69,7 +79,6 @@ document.getElementById('loginform').addEventListener('submit',function(e){
         var msg = document.getElementById('msg');
         msg.style.display = 'block';
         msg.innerText = 'Login Successfully'
-
         setTimeout(()=>{
             msg.style.display = 'none'
         },3000)
@@ -112,7 +121,7 @@ getuser.addEventListener('click',function(e){
     })
 })
 
-editprofile.addEventListener('click', function() {
+editprofile.addEventListener('click', async(e)=>{
     var formContainer = document.getElementById('editFormContainer');
     formContainer.style.display = 'block';
 });
@@ -132,16 +141,75 @@ document.getElementById('editForm').addEventListener('submit', function(event) {
         })
         .then(async(res) =>{
             const data =  await res.json()
-            var formContainer = document.getElementById('signupFormContainer');
+            var formContainer = document.getElementById('editFormContainer');
             formContainer.style.display = 'none';
             console.log(data);
+            var msg = document.getElementById('msg');
+            msg.style.display = 'block';
+            msg.innerText = 'Updated Successfully'
+            setTimeout(()=>{
+                msg.style.display = 'none'
+            },3000)
         })
         .catch(error => {
             console.error('Error:', error);
         });
-
-    
 });
+
+logoutUser.addEventListener('click', async(e)=>{
+    e.preventDefault()
+    fetch(`${url}/users/logout`,{
+        method:"POST",
+        headers:{
+            Authorization:`Bearer ${token}`,
+            'Content-Type':'application/json',
+        },
+    }).then(async (res)=>{
+        var msg = document.getElementById('msg');
+        msg.style.display = 'block';
+        msg.innerText = 'Logout Successfully'
+    }).catch((e)=>{
+        console.log(e)
+    })
+})
+
+deleteUser.addEventListener('click', async(e)=>{
+    e.preventDefault()
+    fetch(`${url}/users/me`,{
+        method:"DELETE",
+        headers:{
+            Authorization:`Bearer ${token}`,
+        },
+    }).then(async (res)=>{
+        var msg = document.getElementById('msg');
+            msg.style.display = 'block';
+            msg.innerText = 'Deleted Successfully'
+            setTimeout(()=>{
+                msg.style.display = 'none'
+            },3000)
+    }).catch((e)=>{
+        console.log(e)
+    })
+})
+
+deleteavatar.addEventListener('click', async(e)=>{
+    e.preventDefault()
+    fetch(`${url}/users/me/avatar`,{
+        method:"DELETE",
+        headers:{
+            Authorization:`Bearer ${token}`,
+        },
+    }).then(async (res)=>{
+        var msg = document.getElementById('msg');
+        msg.style.display = 'block';
+        msg.innerText = 'Deleted Successfully'
+        setTimeout(()=>{
+            msg.style.display = 'none'
+        },3000)
+    }).catch((e)=>{
+        console.log(e)
+    })
+})
 
 createtask.addEventListener('click', async(e)=>{
     var formContainer = document.getElementById('taskcontainer');
@@ -165,6 +233,12 @@ document.getElementById('taskForm').addEventListener('submit',function(e){
     }).then(async (res)=>{
         const data = await res.json();
         console.log(data)
+        var msg = document.getElementById('msg');
+        msg.style.display = 'block';
+        msg.innerText = 'Task Created Successfully'
+        setTimeout(()=>{
+            msg.style.display = 'none'
+        },3000)
     }).catch((e)=>{
         console.log(e)
     })
@@ -188,7 +262,7 @@ getAllTask.addEventListener('click', async(e)=>{
         var showTask = document.getElementById('showtask');
 
         data.forEach((task)=>{
-            let desc = document.createElement("p")
+            let desc = document.createElement("li")
             let status = document.createElement("p")
 
             desc.innerText = task.description
@@ -203,19 +277,62 @@ getAllTask.addEventListener('click', async(e)=>{
 })
 
 
-logoutUser.addEventListener('click', async(e)=>{
+edittask.addEventListener('click', async(e)=> {
+    var formContainer = document.getElementById('edittaskContainer');
+    formContainer.style.display = 'block';
+    console.log('Clicked')
+});
+
+document.getElementById('edittaskForm').addEventListener('submit', function(event) {
+    event.preventDefault();
+    
+        const formData = new FormData(event.target);
+
+        fetch(`${url}/tasks/:id`, {
+            
+            method: 'PATCH',
+            headers:{
+                Authorization:`Bearer ${token}`,
+            },
+            body: formData,
+        })
+        .then(async(res) =>{
+            const data =  await res.json()
+            var formContainer = document.getElementById('edittaskContainer');
+            formContainer.style.display = 'none';
+            console.log(data);
+            var msg = document.getElementById('msg');
+            msg.style.display = 'block';
+            msg.innerText = 'Updated Successfully'
+            setTimeout(()=>{
+                msg.style.display = 'none'
+            },3000)
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        });
+});
+
+deletetask.addEventListener('click', async(e)=>{
     e.preventDefault()
-    fetch(`${url}/users/logout`,{
-        method:"POST",
+    fetch(`${url}/tasks/:id`,{
+        method:"DELETE",
         headers:{
             Authorization:`Bearer ${token}`,
-            'Content-Type':'application/json',
         },
     }).then(async (res)=>{
-        console.log('logout successful')
+        var msg = document.getElementById('msg');
+        msg.style.display = 'block';
+        msg.innerText = 'Deleted Successfully'
+        setTimeout(()=>{
+            msg.style.display = 'none'
+        },3000)
     }).catch((e)=>{
         console.log(e)
     })
 })
+
+
+
 
 

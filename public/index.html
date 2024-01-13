@@ -8,33 +8,47 @@
     <title>TaskBuddy</title>
 </head>
 <body>
-    <marquee bgcolor="white"><h1>Complete the task with TaskBuddy</h1></marquee>
+    <marquee id="header"><h1>********************************!! Complete the task with TaskBuddy !!*********************************</h1></marquee>
    <button id="create-user">New User</button>
    <button id="create-task">Add task</button>
-   <button id="get-task">Get all tasks</button>
+   <button id="get-task">Show tasks</button>
    <button id="get-user">Show Profile</button>
    <button id="login-user">Login</button>
   
     <p id="msg" style="display: none; color:#fff;"></p>
 
     <div id="viewprofile">
+
+        <a id="close-page" href="">Close</a><br>
+
         <h2>Account Details</h2>
-        <p id="name" style="display: none; "></p>
-        <p id="email" style="display: none;"></p>
-        <p id="age" style="display: none;"></p>
         <img src="" id="avatar" style="display: none;" alt="">
+        <p id="name"></p>
+        <p id="email"></p>
+        <p id="age"></p>
         <button id="logout-user">Logout</button>
         <button id="edit-profile">Edit</button>
     </div>
 
     <div id="viewtasks">
+
+        <a id="close-page" href="">Close</a><br>
+
         <h2>Your Tasks</h2>
         <div id="showtask">
+            <button id="edit-task">Edit</button> 
+            <button id="delete-task">Delete</button>
         </div>
     </div>
     
     <div id="signupFormContainer">
         <form id="signupForm">
+
+            <a id="close-page" href="">Close</a><br>
+
+            <label for="avatar">Profile pic</label>
+            <input type="file" id="avatar" name="avatar"><br>
+    
             <label for="username">Name:</label>
             <input type="text" id="name" name="name" required><br>
 
@@ -48,9 +62,8 @@
             <input type="password" id="password" name="password" required><br>
 
             <label for="password">Confirm Password:</label>
-            <input type="password" id="confirmpassword" name="confirmpassword" required>
-            <label for="avatar">pic</label>
-            <input type="file" id="avatar" name="avatar"><br>
+            <input type="password" id="confirmpassword" name="confirmpassword" required><br>
+            
             <button type="submit">Sign Up</button>
         </form>
     </div>
@@ -58,6 +71,13 @@
     
     <div id="editFormContainer">
         <form id="editForm">
+            <a id="close-page" href="">Close</a><br>
+
+            <label for="avatar">pic</label>
+            <input type="file" id="edavatar" name="avatar"><br>
+
+            <button id="delete-avatar">Remove Pic</button><br>
+
             <label for="username">Name:</label>
             <input type="text" id="edname" name="name"><br>
 
@@ -70,16 +90,17 @@
             <label for="password">Password:</label>
             <input type="password" id="edpassword" name="password"><br>
 
-            <label for="avatar">pic</label>
-            <input type="file" id="edavatar" name="avatar"><br>
-
             <button type="submit">Save</button>
+            <button id="delete-user">Delete</button>
         </form>
     </div>
 
 
         <div id="loginformcontainer">
         <form id="loginform">  
+
+            <a id="close-page" href="">Close</a><br>
+
             <label for="email">Email:</label>
             <input type="email" id="loginemail" name="email" required><br>
     
@@ -92,6 +113,9 @@
 
         <div id="taskcontainer">
             <form id="taskForm">
+
+                <a id="close-page" href="">Close</a><br>
+
             <label for="description">Task Description:</label>
             <input type="text"  id="description" name="description" required></input><br>
             <label for="status">Task Status:</label>
@@ -103,6 +127,21 @@
             <button type="submit">Create Task</button>
         </form>
     </div>
+
+    <div id="edittaskContainer">
+        <form id="edittaskForm">
+
+            <a id="close-page" href="">Close</a><br>
+
+            <label for="status">Task Status:</label>
+            <input type="radio" id="edcompleted" name="status" value="true">
+            <label for="completed">Completed</label>
+            <input type="radio" id="edincomplete" name="status" value="false">
+            <label for="incomplete">Incomplete</label><br>
+            <button type="submit">Save</button>
+        </form>
+    </div>
+
         <script src="./js/client.js"></script> 
 
 </body>

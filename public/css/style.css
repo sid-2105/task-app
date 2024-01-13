@@ -8,6 +8,11 @@ body{
     background-size: cover;
     background-repeat: no-repeat;
 }
+
+#header{
+    color: antiquewhite;
+}
+
 #create-user{
     background-color: rgb(200, 103, 39);
     padding: 5px;
@@ -19,6 +24,7 @@ body{
 }
 
 #get-task{
+    background-color: rgb(135, 65, 183);
     padding: 5px;
 }
 
@@ -28,7 +34,7 @@ body{
 }
 
 #login-user{
-    background-color: yellow;
+    background-color: rgb(105, 228, 197);
     padding: 5px;
 }
 
@@ -37,8 +43,13 @@ body{
     padding: 5px;
 }
 
-#edit-profile{
-    background-color: rgb(43, 226, 89);
+#delete-user,#delete-task,#delete-avatar{
+    background-color:red;
+    padding: 5px;
+}
+
+#edit-profile,#edit-task{
+    background-color: rgb(34, 156, 227);
     padding: 5px;  
 }
 
@@ -49,13 +60,13 @@ body{
 }
 
 #signupForm {
-    max-width: 300px;
+    max-width: 350px;
     margin: 0 auto;
     padding: 20px;
     color:white;
     border: 1px solid #ccc;
     border-radius: 8px;
-    background-color: blue;
+    background-color: rgb(152, 152, 223);
 }
 
 
@@ -70,7 +81,7 @@ body{
     padding: 20px;
     border: 1px solid #ccc;
     border-radius: 8px;
-    background-color: yellow;
+    background-color: rgb(226, 226, 147);
 }
 
 #taskcontainer{
@@ -84,7 +95,7 @@ body{
     padding: 20px;
     border: 1px solid #ccc;
     border-radius: 8px;
-    background-color: red;
+    background-color: rgb(218, 123, 123);
 }
 
 #editFormContainer{
@@ -92,14 +103,19 @@ body{
     margin-top: 20px;
 }
 
-#editForm{
+#edittaskContainer{
+    display: none;
+    margin-top: 20px;
+}
+
+#editForm,#edittaskForm{
     max-width: 300px;
     margin: 0 auto;
     color: white;
     padding: 20px;
     border: 1px solid #ccc;
     border-radius: 8px;
-    background-color: rgb(102, 154, 217);
+    background-color: rgb(120, 168, 226);
 }
 
 #viewprofile{
@@ -119,5 +135,10 @@ body{
     padding: 20px;
     border: 1px solid #ccc;
     border-radius: 8px;
-    background-color: rgb(159, 102, 205);
+    background-color: rgb(227, 163, 90);
+}
+
+button{
+    background-color: rgb(72, 220, 27);
+    padding: 5px;
 }
