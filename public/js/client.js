@@ -124,7 +124,21 @@ getuser.addEventListener('click',function(e){
 editprofile.addEventListener('click', async(e)=>{
     var formContainer = document.getElementById('editFormContainer');
     formContainer.style.display = 'block';
-});
+    fetch(`${url}/users/me`,{
+        method:"GET",
+        headers:{
+            Authorization:`Bearer ${token}`,
+            'Content-Type':'application/json',
+        },
+    }).then(async(res)=>{
+        const data = await res.json();
+        const key = ["name","email","age"];
+        key.map((value)=>{
+            return document.getElementById(`ed${value}`).value = data[value]  
+        })
+        return document.getElementById('profilepic').src = `data:image/jpeg;base64,${data?.avatar}`  
+    })
+})
 
 document.getElementById('editForm').addEventListener('submit', function(event) {
     event.preventDefault();
@@ -264,12 +278,21 @@ getAllTask.addEventListener('click', async(e)=>{
         data.forEach((task)=>{
             let desc = document.createElement("li")
             let status = document.createElement("p")
+            let edit = document.createElement("button")
+            let deletebtn = document.createElement("button")
 
             desc.innerText = task.description
-            status.innerText = task.completed
+            status.innerText = task.completed ? "Completed": "Incompleted";
+            edit.innerText = "Edit";
+            deletebtn.innerText = "Delete"
+            edit.id = task._id
+            deletebtn.id = task._id
 
             showTask.appendChild(desc)
             showTask.appendChild(status)
+            showTask.appendChild(edit)
+            showTask.appendChild(deletebtn)
+
         })
     }).catch((e)=>{
         console.log(e)

@@ -4,7 +4,7 @@ const auth = require("../middleware/auth");
 const router = new express.Router();
 const multer = require("multer");
 const sharp = require("sharp");
-//const {sendWelcomeEmail, sendCancelationEmail} = require('../emails/account')
+//todoconst {sendWelcomeEmail, sendCancelationEmail} = require('../emails/account')
 
 const upload = multer({
   limits: {
@@ -19,10 +19,7 @@ const upload = multer({
 });
 
 router.post("/users", upload.single("avatar"), async (req, res) => {
-  const buffer = await sharp(req.file.buffer)
-    .resize({ width: 250, height: 250 })
-    .png()
-    .toBuffer();
+  const buffer = await sharp(req.file.buffer) .resize({ width: 250, height: 250 }).png().toBuffer();
   req.body.avatar = buffer;
   const user = new User(req.body);
   try {
@@ -81,10 +78,7 @@ router.get("/users/me", auth, async (req, res) => {
 });
 
 router.patch("/users/me", auth, upload.single("avatar"), async (req, res) => {
-  const buffer = await sharp(req.file.buffer)
-    .resize({ width: 250, height: 250 })
-    .png()
-    .toBuffer();
+  const buffer = await sharp(req.file.buffer).resize({ width: 250, height: 250 }).png().toBuffer();
   req.user.avatar = buffer;
   const updates = Object.keys(req.body);
   const allowed = ["name", "age", "email", "password", "avatar"];
@@ -92,14 +86,15 @@ router.patch("/users/me", auth, upload.single("avatar"), async (req, res) => {
   if (!isvalid) {
     return res.status(400).send({ error: "Invalid values" });
   }
+  console.log(isvalid)
   try {
-    // const user = await User.findByIdAndUpdate(req.params.id,req.body,{new:true, runValidators:true})
     //const user = await User.findByIdAndUpdate(req.user._id)
-
-    updates.forEach((update) => (req.user[update] = req.body[update]));
+    // updates.forEach((update) => (req.user[update] = req.body[update]));
+    const user = await User.findByIdAndUpdate(req.user._id,req.body,{new:true, runValidators:true})
     await req.user.save();
-    res.send(req.user);
+    res.send(user);
   } catch (e) {
+    console.log(e)
     res.status(400).send(e);
   }
 });
