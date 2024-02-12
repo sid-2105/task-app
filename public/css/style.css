@@ -142,3 +142,7 @@ button{
     background-color: rgb(72, 220, 27);
     padding: 5px;
 }
+
+.taskDelete{
+    background-color: red;
+}

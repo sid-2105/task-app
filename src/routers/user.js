@@ -4,7 +4,8 @@ const auth = require("../middleware/auth");
 const router = new express.Router();
 const multer = require("multer");
 const sharp = require("sharp");
-//todoconst {sendWelcomeEmail, sendCancelationEmail} = require('../emails/account')
+const Task = require("../models/task");
+//todo const {sendWelcomeEmail, sendCancelationEmail} = require('../emails/account')
 
 const upload = multer({
   limits: {
@@ -41,7 +42,8 @@ router.post("/users/login", async (req, res) => {
       req.body.password
     );
     const token = await user.generateAuthToken();
-    res.send({ user, token });
+    res.status(200).send({ user, token });
+    console.log("Login successful")
   } catch (e) {
     res.status(400).send(e);
   }
@@ -53,7 +55,8 @@ router.post("/users/logout", auth, async (req, res) => {
       return Token.token != req.token;
     });
     await req.user.save();
-    res.send();
+    res.status(200).send();
+    console.log("Logout Successful")
   } catch (e) {
     res.status(500).send(e);
   }
@@ -71,28 +74,30 @@ router.post("/users/logoutAll", auth, async (req, res) => {
 
 router.get("/users/me", auth, async (req, res) => {
   try {
-    res.send(req.user);
+    res.status(200).send(req.user);
   } catch (e) {
     res.status(500).send();
   }
 });
 
 router.patch("/users/me", auth, upload.single("avatar"), async (req, res) => {
-  const buffer = await sharp(req.file.buffer).resize({ width: 250, height: 250 }).png().toBuffer();
-  req.user.avatar = buffer;
+  if(req.file){
+    const buffer = await sharp(req.file.buffer).resize({ width: 250, height: 250 }).png().toBuffer();
+    req.user.avatar = buffer;
+  }
   const updates = Object.keys(req.body);
   const allowed = ["name", "age", "email", "password", "avatar"];
   const isvalid = updates.every((update) => allowed.includes(update));
   if (!isvalid) {
     return res.status(400).send({ error: "Invalid values" });
   }
-  console.log(isvalid)
   try {
     //const user = await User.findByIdAndUpdate(req.user._id)
     // updates.forEach((update) => (req.user[update] = req.body[update]));
     const user = await User.findByIdAndUpdate(req.user._id,req.body,{new:true, runValidators:true})
     await req.user.save();
-    res.send(user);
+    res.status(200).send(user);
+    console.log("User updated!")
   } catch (e) {
     console.log(e)
     res.status(400).send(e);
@@ -101,13 +106,17 @@ router.patch("/users/me", auth, upload.single("avatar"), async (req, res) => {
 
 router.delete("/users/me", auth, async (req, res) => {
   try {
-    // const user = await User.findByIdAndDelete(req.user._id)
-    //  if(!user){
-    //     return res.status(404).send()
-    //  }
-    await req.user.remove();
+    const user = await User.findByIdAndDelete(req.user._id)
+
+    const userTask = await Task.findByIdAndDelete({owner:req.user._id})
+    
+     if(!user){
+        return res.status(404).send()
+     }
+    // await req.user.remove();
     // todo sendCancelationEmail(user.email,user.name)
-    res.send(req.user);
+    res.status(200).send(req.user);
+    console.log("User Deleted succesfully")
   } catch (e) {
     res.status(500).send(e);
   }
@@ -116,7 +125,8 @@ router.delete("/users/me", auth, async (req, res) => {
 router.delete("/users/me/avatar", auth, async (req, res) => {
   req.user.avatar = undefined;
   await req.user.save();
-  res.send();
+  res.status(200).send();
+  console.log("Avatar removed")
 });
 
 module.exports = router;
